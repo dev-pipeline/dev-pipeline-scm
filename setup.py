@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
     name="dev-pipeline-scm",
@@ -8,7 +8,7 @@ setup(
     package_dir={
         "": "lib"
     },
-    packages=['devpipeline_scm'],
+    packages=find_packages("lib"),
 
     install_requires=[
         'dev-pipeline-core >= 0.2.0'
