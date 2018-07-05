@@ -1,4 +1,4 @@
-dev-pipeline-git
+dev-pipeline-scm
 ================
 |codacy|
 |code-climate|
