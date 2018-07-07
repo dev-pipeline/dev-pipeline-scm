@@ -14,5 +14,7 @@ def main(args=None):
     devpipeline_core.command.execute_command(checkout, args)
 
 
+_SCM_COMMAND = (main, "Checkout the proper version of the source tree.")
+
 if __name__ == '__main__':
     main()

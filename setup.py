@@ -16,7 +16,7 @@ setup(
 
     entry_points={
         'devpipeline.drivers': [
-            'checkout = devpipeline_scm.checkout:main'
+            'checkout = devpipeline_scm.checkout:_SCM_COMMAND'
         ],
 
         'devpipeline.scms': [
