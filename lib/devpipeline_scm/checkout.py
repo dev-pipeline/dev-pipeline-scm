@@ -8,10 +8,10 @@ import devpipeline_scm.scm
 
 def main(args=None):
     # pylint: disable=missing-docstring
-    checkout = devpipeline_core.command.TargetTool([
+    checkout = devpipeline_core.command.make_command([
         devpipeline_scm.scm.scm_task
     ], prog="dev-pipeline checkout", description="Checkout repositories")
-    devpipeline_core.command.execute_tool(checkout, args)
+    devpipeline_core.command.execute_command(checkout, args)
 
 
 if __name__ == '__main__':
