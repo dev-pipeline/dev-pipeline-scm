@@ -3,11 +3,11 @@ checkout
 
 Synopsis
 --------
-.. code::
+::
 
-    dev-pipeline checkout [-h] [--executor EXECUTOR]
-                          [targets [targets ...]]
-
+    dev-pipeline checkout [-h] [--list-scms] [--dependencies DEPENDENCIES]
+                             [--executor EXECUTOR]
+                             [targets [targets ...]]
 
 
 Description
@@ -17,19 +17,17 @@ date.  The tool with either perform a fresh checkout or an update
 (:code:`git fetch`, :code:`hg pull`, etc.) depending on the status of the
 local copy.
 
-If no targets are specified, all targets will be checked out and updated.
+If no targets are specified, all targets will be checked out and/or updated.
 
 
 Options
 -------
-  -h, --help           show this help message and exit
-  --executor EXECUTOR  The amount of verbosity to use. Options are "quiet"
-                       (print no extra information), "verbose" (print
-                       additional information), "dry-run" (print commands to
-                       execute, but don't run them), and "silent" (print
-                       nothing). Regardless of this option, errors are always
-                       printed. (default: quiet)
-
+  -h, --help            show this help message and exit
+  --list-scms           List the available scm tools
+  --dependencies DEPENDENCIES
+                        Control how build dependencies are handled. (default:
+                        deep)
+  --executor EXECUTOR   The method to execute commands. (default: quiet)
 
 
 Config Options
@@ -39,16 +37,3 @@ Config Options
 * :code:`src_path` - The path where a package's source tree lives.  If
   unspecified, packages will be checked out in a folder matching their name
   under :code:`dp.src_root`.
-
-
-Supported SCMs
---------------
-Options here are officially supported by dev-pipeline.  Other options may be
-available using third-party, non-supported plugins.
-
-* git_ - (**Requires the git plugin**) Build using git.
-* nothing - No checkout step.  This is useful for packages that live locally
-  under the dev-pipeline project for some reason.
-
-
-.. _git: https://github.com/dev-pipeline/dev-pipeline-git/blob/master/docs/scm-git.rst
