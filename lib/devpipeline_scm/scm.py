@@ -4,31 +4,24 @@
 import devpipeline_core.plugin
 import devpipeline_core.toolsupport
 
-# A dictionary of all supported scm tools.  Any supported tool should provide
-# an interface compatible with devpipeline.scm.Scm, but it's not required they
-# inherit from that class.  They keys in should match values in the "scm"
-# option in a build.config, and the value should be a function that creates an
-# Scm.
-
-_SCMS = {}
+import devpipeline_scm
 
 
 def _nothing_scm(current_target, common_wrapper):
-    class NothingScm:
+    # Unused variables
+    del current_target
+    del common_wrapper
+
+    class _NothingScm:
         def checkout(self, repo_dir):
+            # pylint: disable=missing-docstring
             pass
 
         def update(self, repo_dir):
+            # pylint: disable=missing-docstring
             pass
 
-    return NothingScm()
-
-
-def _initialize_scms():
-    global _SCMS
-
-    if not _SCMS:
-        _SCMS = devpipeline_core.plugin.query_plugins('devpipeline.scms')
+    return _NothingScm()
 
 
 def _make_scm(current_target, common_wrapper):
@@ -38,10 +31,9 @@ def _make_scm(current_target, common_wrapper):
     Arguments
     component - The component being operated on.
     """
-    _initialize_scms()
     return devpipeline_core.toolsupport.tool_builder(
         current_target["current_config"], "scm",
-        _SCMS, current_target, common_wrapper)
+        devpipeline_scm.SCMS, current_target, common_wrapper)
 
 
 class SimpleScm(devpipeline_core.toolsupport.SimpleTool):
