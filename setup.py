@@ -20,7 +20,7 @@ setup(
         ],
 
         'devpipeline.scms': [
-            'nothing = devpipeline_scm.scm:_nothing_scm',
+            'nothing = devpipeline_scm.scm:_NOTHING_SCM',
         ]
     },
 
