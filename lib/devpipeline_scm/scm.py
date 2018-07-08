@@ -23,7 +23,9 @@ def _nothing_scm(current_target, common_wrapper):
 
     return _NothingScm()
 
+
 _NOTHING_SCM = (_nothing_scm, "Do nothing.")
+
 
 def _make_scm(current_target, common_wrapper):
     """
