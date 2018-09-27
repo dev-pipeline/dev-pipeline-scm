@@ -14,6 +14,13 @@ def _list_scms():
         print("{} - {}".format(scm, devpipeline_scm.SCMS[scm][1]))
 
 
+_MAJOR = 0
+_MINOR = 2
+_PATCH = 0
+
+_STRING = "{}.{}.{}".format(_MAJOR, _MINOR, _PATCH)
+
+
 class CheckoutCommand(devpipeline_core.command.TargetCommand):
     """
     Provide the checkout command to dev-pipeline.
@@ -28,6 +35,7 @@ class CheckoutCommand(devpipeline_core.command.TargetCommand):
         self.enable_dependency_resolution()
         self.enable_executors()
         self.set_tasks([devpipeline_scm.scm.scm_task])
+        self.set_version(_STRING)
         self.helper_fn = lambda: super(CheckoutCommand, self).process()
 
     def setup(self, arguments):
