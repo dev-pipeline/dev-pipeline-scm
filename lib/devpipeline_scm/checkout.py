@@ -3,6 +3,7 @@
 
 import argparse
 
+import devpipeline_configure.cache
 import devpipeline_core.command
 
 import devpipeline_scm
@@ -26,8 +27,9 @@ class CheckoutCommand(devpipeline_core.command.TargetCommand):
     Provide the checkout command to dev-pipeline.
     """
 
-    def __init__(self):
-        super().__init__(prog="dev-pipeline checkout",
+    def __init__(self, config_fn):
+        super().__init__(config_fn=config_fn,
+                         prog="dev-pipeline checkout",
                          description="Checkout repositories")
         self.add_argument("--list-scms", action='store_true',
                           default=argparse.SUPPRESS,
@@ -46,9 +48,9 @@ class CheckoutCommand(devpipeline_core.command.TargetCommand):
         self.helper_fn()
 
 
-def main(args=None):
+def main(args=None, config_fn=devpipeline_configure.cache.update_cache):
     # pylint: disable=missing-docstring
-    checkout = CheckoutCommand()
+    checkout = CheckoutCommand(config_fn)
     devpipeline_core.command.execute_command(checkout, args)
 
 
