@@ -26,6 +26,13 @@ def _nothing_scm(current_target):
 _NOTHING_SCM = (_nothing_scm, "Do nothing.")
 
 
+def _no_scm_check(configuration, error_fn):
+    for component_name in configuration.components():
+        component = configuration.get(component_name)
+        if "scm" not in component:
+            error_fn("No scm declared in {}".format(component_name))
+
+
 def _make_scm(current_target):
     """
     Create an Scm for a component.

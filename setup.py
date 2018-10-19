@@ -25,6 +25,10 @@ setup(
 
         'devpipeline.scms': [
             'nothing = devpipeline_scm.scm:_NOTHING_SCM',
+        ],
+
+        'devpipeline.config_sanitizers': [
+            "missing-scm-option = devpipeline_scm.scm:_no_scm_check"
         ]
     },
 
