@@ -57,5 +57,5 @@ def scm_task(current_target):
         src_dir = current_target["current_config"].get("dp.src_dir")
         scm.checkout(src_dir)
         scm.update(src_dir)
-    except devpipeline_core.toolsupport.MissingToolKey as e:
-        current_target["executor"].warning(e)
+    except devpipeline_core.toolsupport.MissingToolKey as mtk:
+        current_target["executor"].warning(mtk)

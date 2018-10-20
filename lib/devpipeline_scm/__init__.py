@@ -29,4 +29,11 @@ class _SimpleScm(devpipeline_core.toolsupport.SimpleTool):
 
 
 def make_simple_scm(real_scm, configuration):
+    """
+    Create an Scm instance that leverages executors.
+
+    Arguments:
+    real_scm - a class instance that provides an Scm interface
+    configuration - the configuration for the Scm target
+    """
     return _SimpleScm(real_scm, configuration)
