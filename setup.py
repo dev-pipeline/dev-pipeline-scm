@@ -27,6 +27,10 @@ setup(
             'nothing = devpipeline_scm.scm:_NOTHING_SCM',
         ],
 
+        'devpipeline.config_modifiers': [
+            'src_dir = devpipeline_scm:_make_src_dir'
+        ],
+
         'devpipeline.config_sanitizers': [
             "missing-scm-option = devpipeline_scm.scm:_no_scm_check"
         ]
