@@ -32,8 +32,14 @@ Options
 
 Config Options
 --------------
-* :code:`scm` - (**Required**) The source control tool to use.  Available
+* :code:`scm.tool` - (**Required**) The source control tool to use.  Available
   options are a union of what's built in and what's available via plugins.
-* :code:`src_path` - The path where a package's source tree lives.  If
+* :code:`scm.src_path` - The path where a package's source tree lives.  If
   unspecified, packages will be checked out in a folder matching their name
   under :code:`dp.src_root`.
+
+
+Deprecated Options
+------------------
+* :code:`scm` - Use :code:`scm.tool`
+* :code:`src_path` - Use :code:`scm.src_path`

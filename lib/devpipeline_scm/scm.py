@@ -26,13 +26,6 @@ def _nothing_scm(current_target):
 _NOTHING_SCM = (_nothing_scm, "Do nothing.")
 
 
-def _no_scm_check(configuration, error_fn):
-    for component_name in configuration.components():
-        component = configuration.get(component_name)
-        if "scm" not in component:
-            error_fn("No scm declared in {}".format(component_name))
-
-
 def _make_scm(current_target):
     """
     Create an Scm for a component.
@@ -40,8 +33,12 @@ def _make_scm(current_target):
     Arguments
     component - The component being operated on.
     """
+    # pylint: disable=protected-access
+    tool_key = devpipeline_core.toolsupport.choose_tool_key(
+        current_target, devpipeline_scm._SCM_TOOL_KEYS)
+
     return devpipeline_core.toolsupport.tool_builder(
-        current_target["current_config"], "scm",
+        current_target["current_config"], tool_key,
         devpipeline_scm.SCMS, current_target)
 
 

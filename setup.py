@@ -32,7 +32,8 @@ setup(
         ],
 
         'devpipeline.config_sanitizers': [
-            "missing-scm-option = devpipeline_scm.scm:_no_scm_check"
+            "missing-scm-option = devpipeline_scm:_no_scm_check",
+            "deprecated-scm-path = devpipeline_scm:_deprecated_scm_path_check"
         ]
     },
 
