@@ -52,7 +52,7 @@ def _deprecated_scm_path_check(configuration, error_fn):
 def _make_src_dir(configuration):
     for component_name in configuration.components():
         component = configuration.get(component_name)
-        key = _find_key(configuration, _SRC_PATH_KEYS) or _SRC_PATH_KEYS[0]
+        key = _find_key(component, _SRC_PATH_KEYS) or _SRC_PATH_KEYS[0]
         src_path = component.get(key, fallback=component.name())
         component.set(
             'dp.src_dir',
