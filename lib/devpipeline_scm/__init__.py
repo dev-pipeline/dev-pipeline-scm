@@ -7,6 +7,7 @@ detected scm plugins.
 
 import os.path
 
+import devpipeline_core.config.paths
 import devpipeline_core.plugin
 
 SCMS = devpipeline_core.plugin.query_plugins('devpipeline.scms')
@@ -52,13 +53,22 @@ def _deprecated_scm_path_check(configuration, error_fn):
 def _make_src_dir(configuration):
     for component_name in configuration.components():
         component = configuration.get(component_name)
-        key = _find_key(component, _SRC_PATH_KEYS) or _SRC_PATH_KEYS[0]
-        src_path = component.get(key, fallback=component.name())
-        component.set(
-            'dp.src_dir',
-            os.path.join(
-                component.get("dp.src_root"),
-                src_path))
+        if ("import" in component) and ("scm.fixed_revision" in component):
+            shared_scm = component.get("dp.import_name")
+            src_root = devpipeline_core.config.paths._make_path(
+                None, "scm.cache", shared_scm)
+            src_path = devpipeline_core.config.paths._make_path(
+                None, "scm.cache", "{}-{}".format(shared_scm, component.get("dp.import_version")))
+            component.set("dp.src_dir_shared", src_root)
+            component.set("dp.src_dir", src_path)
+        else:
+            key = _find_key(component, _SRC_PATH_KEYS) or _SRC_PATH_KEYS[0]
+            src_path = component.get(key, fallback=component.name())
+            component.set(
+                'dp.src_dir',
+                os.path.join(
+                    component.get("dp.src_root"),
+                    src_path))
 
 
 class _SimpleScm(devpipeline_core.toolsupport.SimpleTool):
@@ -68,15 +78,15 @@ class _SimpleScm(devpipeline_core.toolsupport.SimpleTool):
     def __init__(self, real, current_target):
         super().__init__(current_target, real)
 
-    def checkout(self, repo_dir):
+    def checkout(self, *args):
         """This function checks out source code."""
         self._call_helper("Checking out", self.real.checkout,
-                          repo_dir)
+                          *args)
 
-    def update(self, repo_dir):
+    def update(self, *args):
         """This funcion updates a checkout of source code."""
         self._call_helper("Updating", self.real.update,
-                          repo_dir)
+                          *args)
 
 
 def make_simple_scm(real_scm, configuration):

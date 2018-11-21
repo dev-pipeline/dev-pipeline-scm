@@ -12,7 +12,7 @@ def _nothing_scm(current_target):
     del current_target
 
     class _NothingScm:
-        def checkout(self, repo_dir):
+        def checkout(self, repo_dir, shared_dir):
             # pylint: disable=missing-docstring
             pass
 
@@ -52,7 +52,8 @@ def scm_task(current_target):
     try:
         scm = _make_scm(current_target)
         src_dir = current_target["current_config"].get("dp.src_dir")
-        scm.checkout(src_dir)
+        shared_dir = current_target["current_config"].get("dp.src_dir_shared")
+        scm.checkout(src_dir, shared_dir)
         scm.update(src_dir)
     except devpipeline_core.toolsupport.MissingToolKey as mtk:
         current_target["executor"].warning(mtk)
