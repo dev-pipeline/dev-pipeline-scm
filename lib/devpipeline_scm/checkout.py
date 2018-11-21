@@ -16,7 +16,7 @@ def _list_scms():
 
 
 _MAJOR = 0
-_MINOR = 3
+_MINOR = 4
 _PATCH = 0
 
 _STRING = "{}.{}.{}".format(_MAJOR, _MINOR, _PATCH)
