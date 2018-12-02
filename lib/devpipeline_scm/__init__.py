@@ -7,7 +7,7 @@ detected scm plugins.
 
 import os.path
 
-import devpipeline_core.config.paths
+import devpipeline_core.paths
 import devpipeline_core.plugin
 
 SCMS = devpipeline_core.plugin.query_plugins('devpipeline.scms')
@@ -55,10 +55,10 @@ def _make_src_dir(configuration):
         component = configuration.get(component_name)
         if ("import" in component) and ("scm.fixed_revision" in component):
             shared_scm = component.get("dp.import_name")
-            src_root = devpipeline_core.config.paths._make_path(
-                None, "scm.cache", shared_scm)
-            src_path = devpipeline_core.config.paths._make_path(
-                None, "scm.cache", "{}-{}".format(shared_scm, component.get("dp.import_version")))
+            src_root = devpipeline_core.paths.make_path(
+                component, "scm.cache", shared_scm)
+            src_path = devpipeline_core.paths.make_path(
+                component, "scm.cache", "{}-{}".format(shared_scm, component.get("dp.import_version")))
             component.set("dp.src_dir_shared", src_root)
             component.set("dp.src_dir", src_path)
         else:
