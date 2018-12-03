@@ -24,13 +24,12 @@ def _find_key(component, keys):
 
 
 def _no_scm_check(configuration, error_fn):
-    for component_name in configuration.components():
-        component = configuration.get(component_name)
-        scm_key = _find_key(component, _SCM_TOOL_KEYS)
+    for name, config in configuration.items():
+        scm_key = _find_key(config, _SCM_TOOL_KEYS)
         if not scm_key:
-            error_fn("No scm declared in {}".format(component_name))
+            error_fn("No scm declared in {}".format(name))
         _final_deprecated_check(scm_key, _SCM_TOOL_KEYS[0],
-                                component_name, error_fn)
+                                name, error_fn)
 
 
 def _final_deprecated_check(real_key, expected_key, component_name, error_fn):
@@ -40,10 +39,9 @@ def _final_deprecated_check(real_key, expected_key, component_name, error_fn):
 
 
 def _check_deprecated_helper(configuration, keys, error_fn):
-    for component_name in configuration.components():
-        component = configuration.get(component_name)
-        key = _find_key(component, keys)
-        _final_deprecated_check(key, keys[0], component_name, error_fn)
+    for name, config in configuration.items():
+        key = _find_key(config, keys)
+        _final_deprecated_check(key, keys[0], name, error_fn)
 
 
 def _deprecated_scm_path_check(configuration, error_fn):
@@ -51,23 +49,22 @@ def _deprecated_scm_path_check(configuration, error_fn):
 
 
 def _make_src_dir(configuration):
-    for component_name in configuration.components():
-        component = configuration.get(component_name)
-        if ("import" in component) and ("scm.fixed_revision" in component):
-            shared_scm = component.get("dp.import_name")
+    for name, config in configuration.items():
+        if ("import" in config) and ("scm.fixed_revision" in config):
+            shared_scm = config.get("dp.import_name")
             src_root = devpipeline_core.paths.make_path(
-                component, "scm.cache", shared_scm)
+                config, "scm.cache", shared_scm)
             src_path = devpipeline_core.paths.make_path(
-                component, "scm.cache", "{}-{}".format(shared_scm, component.get("dp.import_version")))
-            component.set("dp.src_dir_shared", src_root)
-            component.set("dp.src_dir", src_path)
+                config, "scm.cache", "{}-{}".format(shared_scm, config.get("dp.import_version")))
+            config.set("dp.src_dir_shared", src_root)
+            config.set("dp.src_dir", src_path)
         else:
-            key = _find_key(component, _SRC_PATH_KEYS) or _SRC_PATH_KEYS[0]
-            src_path = component.get(key, fallback=component.name())
-            component.set(
+            key = _find_key(config, _SRC_PATH_KEYS) or _SRC_PATH_KEYS[0]
+            src_path = config.get(key, fallback=name)
+            config.set(
                 'dp.src_dir',
                 os.path.join(
-                    component.get("dp.src_root"),
+                    config.get("dp.src_root"),
                     src_path))
 
 
