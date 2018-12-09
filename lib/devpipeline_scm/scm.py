@@ -38,7 +38,7 @@ def _make_scm(current_target):
         current_target, devpipeline_scm._SCM_TOOL_KEYS)
 
     return devpipeline_core.toolsupport.tool_builder(
-        current_target["current_config"], tool_key,
+        current_target.config, tool_key,
         devpipeline_scm.SCMS, current_target)
 
 
@@ -51,9 +51,9 @@ def scm_task(current_target):
     """
     try:
         scm = _make_scm(current_target)
-        src_dir = current_target["current_config"].get("dp.src_dir")
-        shared_dir = current_target["current_config"].get("dp.src_dir_shared")
+        src_dir = current_target.config.get("dp.src_dir")
+        shared_dir = current_target.config.get("dp.src_dir_shared")
         scm.checkout(src_dir, shared_dir)
         scm.update(src_dir)
     except devpipeline_core.toolsupport.MissingToolKey as mtk:
-        current_target["executor"].warning(mtk)
+        current_target.executor.warning(mtk)
