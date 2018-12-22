@@ -35,11 +35,12 @@ def _make_scm(current_target):
     """
     # pylint: disable=protected-access
     tool_key = devpipeline_core.toolsupport.choose_tool_key(
-        current_target, devpipeline_scm._SCM_TOOL_KEYS)
+        current_target, devpipeline_scm._SCM_TOOL_KEYS
+    )
 
     return devpipeline_core.toolsupport.tool_builder(
-        current_target.config, tool_key,
-        devpipeline_scm.SCMS, current_target)
+        current_target.config, tool_key, devpipeline_scm.SCMS, current_target
+    )
 
 
 def scm_task(current_target):

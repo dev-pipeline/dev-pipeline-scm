@@ -28,12 +28,17 @@ class CheckoutCommand(devpipeline_core.command.TargetCommand):
     """
 
     def __init__(self, config_fn):
-        super().__init__(config_fn=config_fn,
-                         prog="dev-pipeline checkout",
-                         description="Checkout repositories")
-        self.add_argument("--list-scms", action='store_true',
-                          default=argparse.SUPPRESS,
-                          help="List the available scm tools")
+        super().__init__(
+            config_fn=config_fn,
+            prog="dev-pipeline checkout",
+            description="Checkout repositories",
+        )
+        self.add_argument(
+            "--list-scms",
+            action="store_true",
+            default=argparse.SUPPRESS,
+            help="List the available scm tools",
+        )
         self.enable_dependency_resolution()
         self.enable_executors()
         self.set_tasks([devpipeline_scm.scm.scm_task])
@@ -56,5 +61,5 @@ def main(args=None, config_fn=devpipeline_configure.cache.update_cache):
 
 _SCM_COMMAND = (main, "Checkout the proper version of the source tree.")
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
