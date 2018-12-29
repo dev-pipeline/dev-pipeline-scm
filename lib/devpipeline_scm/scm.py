@@ -54,7 +54,7 @@ def scm_task(current_target):
         scm = _make_scm(current_target)
         src_dir = current_target.config.get("dp.src_dir")
         shared_dir = current_target.config.get("dp.src_dir_shared")
-        scm.checkout(src_dir, shared_dir)
-        scm.update(src_dir)
+        scm.checkout(repo_dir=src_dir, shared_dir=shared_dir)
+        scm.update(repo_dir=src_dir)
     except devpipeline_core.toolsupport.MissingToolKey as mtk:
         current_target.executor.warning(mtk)

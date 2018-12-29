@@ -75,13 +75,13 @@ class _SimpleScm(devpipeline_core.toolsupport.SimpleTool):
     def __init__(self, real, current_target):
         super().__init__(current_target, real)
 
-    def checkout(self, *args):
+    def checkout(self, *args, **kwargs):
         """This function checks out source code."""
-        self._call_helper("Checking out", self.real.checkout, *args)
+        self._call_helper("Checking out", self.real.checkout, *args, **kwargs)
 
-    def update(self, *args):
+    def update(self, *args, **kwargs):
         """This funcion updates a checkout of source code."""
-        self._call_helper("Updating", self.real.update, *args)
+        self._call_helper("Updating", self.real.update, *args, **kwargs)
 
 
 def make_simple_scm(real_scm, configuration):
