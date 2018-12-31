@@ -22,7 +22,7 @@ _PATCH = 0
 _STRING = "{}.{}.{}".format(_MAJOR, _MINOR, _PATCH)
 
 
-class CheckoutCommand(devpipeline_core.command.TargetCommand):
+class CheckoutCommand(devpipeline_core.command.TaskCommand):
     """
     Provide the checkout command to dev-pipeline.
     """
@@ -30,6 +30,7 @@ class CheckoutCommand(devpipeline_core.command.TargetCommand):
     def __init__(self, config_fn):
         super().__init__(
             config_fn=config_fn,
+            tasks=[devpipeline_scm.scm.scm_task],
             prog="dev-pipeline checkout",
             description="Checkout repositories",
         )
@@ -39,9 +40,6 @@ class CheckoutCommand(devpipeline_core.command.TargetCommand):
             default=argparse.SUPPRESS,
             help="List the available scm tools",
         )
-        self.enable_dependency_resolution()
-        self.enable_executors()
-        self.set_tasks([devpipeline_scm.scm.scm_task])
         self.set_version(_STRING)
         self.helper_fn = lambda: super(CheckoutCommand, self).process()
 
