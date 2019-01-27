@@ -43,7 +43,7 @@ def _make_scm(current_target):
     )
 
 
-def scm_task(current_target):
+def checkout_task(current_target):
     """
     Update or a local checkout.
 

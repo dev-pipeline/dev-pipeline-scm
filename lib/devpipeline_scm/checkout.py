@@ -30,7 +30,7 @@ class CheckoutCommand(devpipeline_core.command.TaskCommand):
     def __init__(self, config_fn):
         super().__init__(
             config_fn=config_fn,
-            tasks=[devpipeline_scm.scm.scm_task],
+            tasks=[("checkout", devpipeline_scm.scm.checkout_task)],
             prog="dev-pipeline checkout",
             description="Checkout repositories",
         )
