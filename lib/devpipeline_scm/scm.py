@@ -58,3 +58,6 @@ def checkout_task(current_target):
         scm.update(repo_dir=src_dir)
     except devpipeline_core.toolsupport.MissingToolKey as mtk:
         current_target.executor.warning(mtk)
+
+
+CHECKOUT_TASK = ("checkout", checkout_task)
