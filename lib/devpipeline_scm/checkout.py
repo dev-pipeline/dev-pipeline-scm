@@ -41,14 +41,12 @@ class CheckoutCommand(devpipeline_core.command.TaskCommand):
             help="List the available scm tools",
         )
         self.set_version(_STRING)
-        self.helper_fn = lambda: super(CheckoutCommand, self).process()
 
-    def setup(self, arguments):
+    def process(self, arguments):
         if "list_scms" in arguments:
-            self.helper_fn = _list_scms
-
-    def process(self):
-        self.helper_fn()
+            _list_scms()
+        else:
+            super().process(arguments)
 
 
 def main(args=None, config_fn=devpipeline_configure.cache.update_cache):
