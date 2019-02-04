@@ -3,7 +3,7 @@
 
 import argparse
 
-import devpipeline_configure.cache
+import devpipeline_configure.load
 import devpipeline_core.command
 
 import devpipeline_scm
@@ -49,7 +49,7 @@ class CheckoutCommand(devpipeline_core.command.TaskCommand):
             super().process(arguments)
 
 
-def main(args=None, config_fn=devpipeline_configure.cache.update_cache):
+def main(args=None, config_fn=devpipeline_configure.load.update_cache):
     # pylint: disable=missing-docstring
     checkout = CheckoutCommand(config_fn)
     devpipeline_core.command.execute_command(checkout, args)
